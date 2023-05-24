@@ -2,12 +2,17 @@ import fetchData from "./fetch-data";
 import processData from "./process-data";
 import sendData from "./send-data";
 
+/**
+ * Renders the inbox by fetching data, processing it, and sending the processed data.
+ * @param whereToFetchData - The URL to fetch the raw data from.
+ * @param whereToPostData - The URL to post the processed data to.
+ */
 const renderInbox = async (
   whereToFetchData: string,
   whereToPostData: string
 ) => {
-  console.log(`[Render inbox] Where to fetch data: ${whereToFetchData}`);
-  console.log(`[Render inbox] Where to post data: ${whereToPostData}`);
+  console.log(`[Render inbox 📨] Where to fetch data: ${whereToFetchData}`);
+  console.log(`[Render inbox 📨] Where to post data: ${whereToPostData}`);
 
   const rawData = await fetchData(whereToFetchData);
 
@@ -18,7 +23,7 @@ const renderInbox = async (
       sendData(whereToPostData, processedData);
     });
   } else {
-    console.error("[Render inbox] Failed to fetch data");
+    console.error("[Render inbox 📨] Failed to fetch data");
   }
 };
 

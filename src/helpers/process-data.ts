@@ -5,6 +5,11 @@ import {
   RawUser,
 } from "./types";
 
+/**
+ * Processes the raw data into a structured format.
+ * @param rawData - The raw data to process.
+ * @returns The processed data.
+ */
 const processData = (rawData: {
   messages: RawMessage[];
   users: RawUser[];
@@ -25,6 +30,7 @@ const processData = (rawData: {
     const userLastName = user.lastName;
     const userId = user.id;
 
+    // Filter the messages related to the primary user and the selected user
     const userMessages = rawMessages.filter((message) => {
       const primaryUserSentMessage =
         message.fromUserId === primaryUserId && message.toUserId === userId;
@@ -33,6 +39,7 @@ const processData = (rawData: {
       return primaryUserSentMessage || primaryUserReceivedMessage;
     });
 
+    // Sort the messages by timestamp (most recent first)
     const sortedUserMessages = userMessages.sort((a, b) => {
       if (a.timestamp < b.timestamp) {
         return 1;
@@ -43,13 +50,16 @@ const processData = (rawData: {
       return 0;
     });
 
+    // Extract details from the most recent message
     const mostRecentMessage = sortedUserMessages[0];
     const mostRecentMessageContent = mostRecentMessage.content;
     const mostRecentMessageTimestamp = mostRecentMessage.timestamp;
     const mostRecentMessageFromUserId = mostRecentMessage.fromUserId;
 
+    // Calculate the total number of messages sent to the user
     const userTotalMessages = userMessages.length;
 
+    // Create a conversation object for the user
     const conversation: ProcessedConversation = {
       avatar: userAvatar,
       firstName: userFirstName,
@@ -63,9 +73,11 @@ const processData = (rawData: {
       userId,
     };
 
+    // Add the conversation to the processed conversations array
     processedConversations.push(conversation);
   });
 
+  // Sort the conversations by most recent message timestamp (most recent first)
   processedConversations.sort((a, b) => {
     if (a.mostRecentMessage.timestamp < b.mostRecentMessage.timestamp) {
       return 1;
@@ -76,7 +88,7 @@ const processData = (rawData: {
     return 0;
   });
 
-  console.log(JSON.stringify(processedData));
+  // console.log(JSON.stringify(processedData));
 
   return processedData;
 };
