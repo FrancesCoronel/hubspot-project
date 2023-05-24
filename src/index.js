@@ -51,7 +51,7 @@ const processData = (rawData) => {
   const rawUsers = rawData.users;
   const primaryUserId = rawData.userId;
 
-  rawUsers.map((user) => {
+  rawUsers.forEach((user) => {
     // avatar
     const userAvatar = user.avatar;
 
@@ -78,9 +78,16 @@ const processData = (rawData) => {
     // console.log(user_messages);
 
     // sort messages by timestamp (most recent first)
-    const sortedUserMessages = userMessages.sort((a, b) =>
-      a.timestamp < b.timestamp ? 1 : b.timestamp < a.timestamp ? -1 : 0
-    );
+    const sortedUserMessages = userMessages.sort((a, b) => {
+      if (a.timestamp < b.timestamp) {
+        return 1;
+      }
+      if (b.timestamp < a.timestamp) {
+        return -1;
+      }
+      return 0;
+    });
+
     // console.log(sorted_user_messages);
 
     const mostRecentMessage = sortedUserMessages[0];
@@ -112,13 +119,15 @@ const processData = (rawData) => {
   });
 
   // sort conversations by timestamp (most recent first)
-  processedConversations.sort((a, b) =>
-    a.mostRecentMessage.timestamp < b.mostRecentMessage.timestamp
-      ? 1
-      : b.mostRecentMessage.timestamp < a.mostRecentMessage.timestamp
-      ? -1
-      : 0
-  );
+  processedConversations.sort((a, b) => {
+    if (a.mostRecentMessage.timestamp < b.mostRecentMessage.timestamp) {
+      return 1;
+    }
+    if (b.mostRecentMessage.timestamp < a.mostRecentMessage.timestamp) {
+      return -1;
+    }
+    return 0;
+  });
 
   // console.log(`[Process data] Processed data:`);
   // console.log(processed_data);
