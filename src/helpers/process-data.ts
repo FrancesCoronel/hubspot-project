@@ -88,6 +88,7 @@ const processData = (rawData: {
     return 0;
   });
 
+  console.log("[Process Data 📦] Data is now processed");
   // console.log(JSON.stringify(processedData));
 
   return processedData;

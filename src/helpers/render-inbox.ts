@@ -11,8 +11,8 @@ const renderInbox = async (
   whereToFetchData: string,
   whereToPostData: string
 ) => {
-  console.log(`[Render inbox 📨] Where to fetch data: ${whereToFetchData}`);
-  console.log(`[Render inbox 📨] Where to post data: ${whereToPostData}`);
+  console.log(`[Render Inbox 📨] Where to fetch data: ${whereToFetchData}`);
+  console.log(`[Render Inbox 📨] Where to post data: ${whereToPostData}`);
 
   const rawData = await fetchData(whereToFetchData);
 
@@ -23,7 +23,7 @@ const renderInbox = async (
       sendData(whereToPostData, processedData);
     });
   } else {
-    console.error("[Render inbox 📨] Failed to fetch data");
+    console.error("[Render Inbox 📨] Failed to fetch data");
   }
 };
 
