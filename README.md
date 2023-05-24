@@ -2,6 +2,12 @@
 
 May 24, 2023
 
+## API Key
+
+```txt
+API_KEY="24ed898cb162d6d4cc20112de7ca"
+```
+
 ## Installation
 
 `npm i`
